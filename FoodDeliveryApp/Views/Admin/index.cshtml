@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #fff6e9;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dashboard-card {
+        background: papayawhip;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 700px;
+        padding: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .dashboard-card h2 {
+        color: #ff9800;
+        font-weight: 600;
+        margin-bottom: 2rem;
+    }
+
+    .btn-primary {
+        background-color: #ff9800;
+        border-color: #ff9800;
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 8px;
+        display: inline-block;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #e68900;
+        border-color: #e68900;
+    }
+</style>
+
+<div class="dashboard-card">
+    <h2>Admin Dashboard</h2>
+    <p>Manage your users and roles effectively.</p>
+    <a asp-action="CreateUser" class="btn-primary">Create New User</a>
+</div>
