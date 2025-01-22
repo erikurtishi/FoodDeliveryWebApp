@@ -1,0 +1,46 @@
+# Rider Specific
+.idea/
+*.iml
+.idea_modules/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated folders
+bin/
+obj/
+build/
+debug/
+release/
+
+# Logs
+*.log
+*.tlog
+*.out
+
+# OS Generated
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ASP.NET Core environment files
+.env
+.env.*
+
+# Dependencies
+packages/
+*.nupkg
+*.snupkg
+
+# Visual Studio Code settings (if applicable)
+.vscode/
+
+# Global Assembly Info
+AssemblyInfo.cs
+
+# dotnet tools
+**/tools/*
+.dotnet_tool
