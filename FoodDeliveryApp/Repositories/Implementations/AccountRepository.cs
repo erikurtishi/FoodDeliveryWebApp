@@ -24,9 +24,18 @@ public class AccountRepository : IAccountRepository
     {
         return await _signInManager.PasswordSignInAsync(email, password, rememberMe, lockoutOnFailure: false);
     }
-
+    
+    public async Task<AppUser?> FindByEmailAsync(string email)
+    {
+        return await _userManager.FindByEmailAsync(email);
+    }
+    public async Task<bool> IsInRoleAsync(AppUser user, string role)
+    {
+        return await _userManager.IsInRoleAsync(user, role);
+    }
     public async Task LogoutAsync()
     {
         await _signInManager.SignOutAsync();
     }
+    
 }

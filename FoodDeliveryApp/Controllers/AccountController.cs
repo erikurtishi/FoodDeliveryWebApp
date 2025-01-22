@@ -68,9 +68,29 @@ public class AccountController : Controller
         if (ModelState.IsValid)
         {
             var result = await _accountRepository.LoginAsync(model.Email, model.Password, model.RememberMe);
+
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                var user = await _accountRepository.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    if (await _accountRepository.IsInRoleAsync(user, "Admin"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    // else if (await _accountRepository.IsInRoleAsync(user, "Driver"))
+                    // {
+                    //     return RedirectToAction("Index", "Driver");
+                    // }
+                    // else if (await _accountRepository.IsInRoleAsync(user, "Restaurant"))
+                    // {
+                    //     return RedirectToAction("Index", "Restaurant");
+                    // }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
             }
 
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
