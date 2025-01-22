@@ -1,0 +1,135 @@
+@model FoodDeliveryApp.Models.RegisterView
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #fff6e9;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .auth-card {
+        background: papayawhip;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 700px;
+        padding: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .auth-card h2 {
+        color: #ff9800;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-primary {
+        background-color: #ff9800;
+        border-color: #ff9800;
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 8px;
+        display: inline-block;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+        text-align: center;
+    }
+
+    .btn-primary:hover {
+        background-color: #e68900;
+        border-color: #e68900;
+    }
+
+    .form-control {
+        background-color: #fff6e9;
+        border: 1px solid #ff9800;
+        color: #333;
+        border-radius: 8px;
+        padding: 10px;
+        transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: #ff9800;
+        box-shadow: 0 0 0 0.2rem rgba(255, 152, 0, 0.25);
+    }
+
+    .form-group label {
+        color: #ff9800;
+        font-weight: 500;
+    }
+
+    .form-group span.text-danger {
+        font-size: 0.85rem;
+        color: red;
+    }
+</style>
+
+<div class="auth-card">
+    <h2>Create User</h2>
+    <form asp-action="CreateUser" method="post">
+        <div class="row">
+            <!-- Full Name -->
+            <div class="col-md-6 mb-3">
+                <label asp-for="FullName" class="form-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6 mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <!-- Address -->
+            <div class="col-md-6 mb-3">
+                <label asp-for="Address" class="form-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <!-- Age -->
+            <div class="col-md-6 mb-3">
+                <label asp-for="Age" class="form-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="col-md-6 mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="col-md-6 mb-3">
+                <label asp-for="ConfirmPassword" class="form-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" type="password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <!-- Role -->
+            <div class="form-group">
+                <label for="Role" class="form-label">Role</label>
+                <select name="role" id="Role" class="form-control">
+                    <option value="" disabled selected>Select Role</option>
+                    <option value="Restaurant">Restaurant</option>
+                    <option value="Driver">Driver</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 fw-bold">Create User</button>
+    </form>
+</div>
