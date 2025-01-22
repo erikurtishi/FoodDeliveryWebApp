@@ -1,5 +1,7 @@
 using FoodDeliveryApp.Data;
 using FoodDeliveryApp.Models;
+using FoodDeliveryApp.Repositories.Implementations;
+using FoodDeliveryApp.Repositories.Interfaces;
 using FoodDeliveryApp.Seeders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 var app = builder.Build();
 
