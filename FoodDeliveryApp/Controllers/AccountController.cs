@@ -79,22 +79,23 @@ public class AccountController : Controller
 
                     if (user != null)
                     {
-                        if (await _userManager.IsInRoleAsync(user, "Restaurant"))
-                        {
-                            return RedirectToAction("Index", "Restaurant");
-                        }
-                        else if (await _userManager.IsInRoleAsync(user, "Driver"))
-                        {
-                            return RedirectToAction("Index", "Driver");
-                        }
-                        else if (await _userManager.IsInRoleAsync(user, "Admin"))
-                        {
-                            return RedirectToAction("Index", "Admin");
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
+                        // if (await _userManager.IsInRoleAsync(user, "Restaurant"))
+                        // {
+                        //     return RedirectToAction("Index", "Restaurant");
+                        // }
+                        // else if (await _userManager.IsInRoleAsync(user, "Driver"))
+                        // {
+                        //     return RedirectToAction("Index", "Driver");
+                        // }
+                        // else if (await _userManager.IsInRoleAsync(user, "Admin"))
+                        // {
+                        //     return RedirectToAction("Index", "Admin");
+                        // }
+                        // else
+                        // {
+                        //     return RedirectToAction("Index", "Home");
+                        // }
+                        return RedirectToAction("Index", "Home");
                     }
                 }
 
