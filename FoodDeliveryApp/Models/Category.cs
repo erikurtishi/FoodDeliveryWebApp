@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using FoodDeliveryWebApp.Models;
+using FoodDeliveryApp.Models;
 
 namespace FoodDeliveryApp.Models;
 

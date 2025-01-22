@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using FoodDeliveryApp.Models;
 
-namespace FoodDeliveryWebApp.Models;
+namespace FoodDeliveryApp.Models;
 
 public class MenuItem
 {

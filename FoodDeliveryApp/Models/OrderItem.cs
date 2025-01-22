@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using FoodDeliveryWebApp.Models;
+using FoodDeliveryApp.Models;
 
 namespace FoodDeliveryApp.Models;
 
