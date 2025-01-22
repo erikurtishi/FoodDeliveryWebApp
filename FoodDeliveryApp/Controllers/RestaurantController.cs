@@ -40,6 +40,71 @@ public class RestaurantController : Controller
         var restaurant = await _context.Restaurants.FirstOrDefaultAsync(r => r.UserID == appUser.Id);
         return restaurant != null ? View(restaurant) : RedirectToAction("CreateRestaurant");
     }
+    public async Task<IActionResult> Dashboard()
+    {
+        var userId = _userManager.GetUserId(User);
+
+        var restaurant = await _context.Restaurants.FirstOrDefaultAsync(r => r.UserID == userId);
+        if (restaurant == null)
+        {
+            return NotFound("Restaurant not found.");
+        }
+
+        var orders = await _context.Orders
+            .Include(o => o.OrderItems)
+            .ThenInclude(oi => oi.MenuItem)
+            .Include(o => o.User)
+            .Include(o => o.DeliveryPerson)
+            .Where(o => o.RestaurantID == restaurant.RestaurantID)
+            .OrderByDescending(o => o.CreatedAt)
+            .ToListAsync();
+
+        var deliveryPersons = await _userManager.GetUsersInRoleAsync("Driver");
+        ViewBag.DeliveryPersons = deliveryPersons;
+
+        return View(orders);
+    }
+
+ 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AssignDelivery(int orderId, string deliveryId)
+    {
+        var order = await _context.Orders.FindAsync(orderId);
+
+        if (order == null)
+        {
+            return NotFound("Order not found.");
+        }
+
+        order.DeliveryID = deliveryId; // Assign delivery person
+        order.Status = "Assigned to Delivery";
+
+        _context.Orders.Update(order);
+        await _context.SaveChangesAsync();
+
+        TempData["SuccessMessage"] = "Delivery person assigned successfully!";
+        return RedirectToAction("Dashboard");
+    }
+
+    
+    public async Task<IActionResult> OrderDetails(int orderId)
+    {
+        var order = await _context.Orders
+            .Include(o => o.OrderItems)
+            .ThenInclude(oi => oi.MenuItem) // Ensure MenuItem is loaded
+            .Include(o => o.User)
+            .Include(o => o.DeliveryPerson)
+            .ToListAsync();
+
+
+        if (order == null)
+        {
+            return NotFound("Order not found.");
+        }
+
+        return View(order);
+    }
 
 
     // GET: Menu Items
