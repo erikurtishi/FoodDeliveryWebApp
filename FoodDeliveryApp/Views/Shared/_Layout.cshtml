@@ -1,46 +1,140 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<FoodDeliveryApp.Models.AppUser> UserManager
+@inject SignInManager<FoodDeliveryApp.Models.AppUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - FoodDeliveryApp</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/FoodDeliveryApp.styles.css" asp-append-version="true"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FoodDeliveryWebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #fff6e9; /* Global light orange background */
+        }
+
+        .content-wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+            background-color: #fff6e9; /* Light orange background */
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .navbar-custom {
+            background-color: papayawhip;
+            border-bottom: 2px solid #ff9800;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar-title {
+            font-size: 1.5rem;
+            color: #ff9800;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            color: #ff9800 !important;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: papayawhip;
+            color: #ff9800;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 2px solid #ff9800;
+        }
+
+        footer a {
+            color: #ff9800;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FoodDeliveryApp</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                </ul>
+<div class="content-wrapper">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/logo.png" alt="Logo" />
+                    <span class="navbar-title">FoodDeliveryWebApp</span>
+                </a>
+                <div class="ms-auto">
+                    <ul class="navbar-nav">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-link nav-link">
+                                        Logout (@{
+                                            var currentUser = await UserManager.GetUserAsync(User);
+                                            if (currentUser != null)
+                                            {
+                                                @currentUser.FullName
+                                            }
+                                        })
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="Login" asp-controller="Account">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="Register" asp-controller="Account">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
-<div class="container">
-    <main role="main" class="pb-3">
+        </nav>
+    </header>
+
+    <main role="main" class="container">
         @RenderBody()
     </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; @DateTime.Now.Year - FoodDeliveryWebApp</p>
+            <p>
+                Built by Foodini Team. <br />
+                <a asp-controller="Home" asp-action="Privacy">Privacy Policy</a> | <a href="#">Contact Us</a>
+            </p>
+        </div>
+    </footer>
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2025 - FoodDeliveryApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
-</footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>

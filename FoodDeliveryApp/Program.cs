@@ -1,5 +1,8 @@
 using FoodDeliveryApp.Data;
 using FoodDeliveryApp.Models;
+using FoodDeliveryApp.Repositories.Implementations;
+using FoodDeliveryApp.Repositories.Interfaces;
+using FoodDeliveryApp.Seeders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +16,16 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    await UserSeeder.SeedAsync(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
