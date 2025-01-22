@@ -3,16 +3,6 @@
 }
 
 <style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #fff6e9;
-        height: 100vh;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     .dashboard-card {
         background: papayawhip;
         border-radius: 12px;
@@ -47,8 +37,10 @@
     }
 </style>
 
-<div class="dashboard-card">
-    <h2>Admin Dashboard</h2>
-    <p>Manage your users and roles effectively.</p>
-    <a asp-action="CreateUser" class="btn-primary">Create New User</a>
+<div class="container py-4 d-flex justify-content-center align-items-center">
+    <div class="dashboard-card">
+        <h2>Admin Dashboard</h2>
+        <p>Manage your users and roles effectively.</p>
+        <a asp-action="CreateUser" class="btn-primary">Create New User</a>
+    </div>
 </div>
