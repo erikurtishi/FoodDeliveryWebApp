@@ -92,7 +92,7 @@ public class RestaurantController : Controller
     {
         var order = await _context.Orders
             .Include(o => o.OrderItems)
-            .ThenInclude(oi => oi.MenuItem) // Ensure MenuItem is loaded
+            .ThenInclude(oi => oi.MenuItem) 
             .Include(o => o.User)
             .Include(o => o.DeliveryPerson)
             .ToListAsync();
