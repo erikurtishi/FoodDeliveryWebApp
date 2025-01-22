@@ -1,0 +1,43 @@
+@model IEnumerable<FoodDeliveryApp.Models.MenuItem>
+
+@{
+    ViewData["Title"] = "Menu Items";
+}
+
+<h1>@ViewData["RestaurantName"]'s Menu</h1>
+
+<div style="text-align: right; margin-bottom: 20px;">
+    <a asp-action="CreateMenuItem" class="btn btn-primary">Create Menu Item</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Availability</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>$@item.Price</td>
+            <td>@item.Category?.Name</td>
+            <td>@(item.IsAvailable ? "Available" : "Unavailable")</td>
+            <td>
+                <a asp-action="EditMenuItem" asp-route-id="@item.MenuItemID" class="btn btn-warning">Edit</a>
+                <form asp-action="DeleteMenuItem" asp-route-id="@item.MenuItemID" method="post" style="display:inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

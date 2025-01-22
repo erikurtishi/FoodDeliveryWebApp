@@ -1,0 +1,84 @@
+@model IEnumerable<FoodDeliveryApp.Models.Order>
+
+<h2>Orders Dashboard</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>User</th>
+        <th>Order Items</th>
+        <th>Total Amount</th>
+        <th>Status</th>
+        <th>Delivery Person</th>
+        <th>Delivery Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var order in Model)
+    {
+        <tr>
+            <td>@order.OrderID</td>
+            <td>@order.User?.Email ?? "Unknown"</td>
+            <td>
+                <ul>
+                    @foreach (var item in order.OrderItems)
+                    {
+                        <li>
+                            <strong>@item.MenuItem.Name</strong> (x @item.Quantity) - @item.TotalPrice.ToString("C")
+                        </li>
+                    }
+                </ul>
+            </td>
+            <td>@order.TotalAmount.ToString("C")</td>
+            <td>@order.Status</td>
+            <td>@order.DeliveryPerson?.FullName ?? "Not Assigned"</td>
+            <td>
+                @if (order.Status == "Delivered")
+                {
+                    <span class="badge bg-success">Delivered</span>
+                }
+                else if (order.Status == "Out for Delivery")
+                {
+                    <span class="badge bg-warning">Out for Delivery</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Not Delivered</span>
+                }
+            </td>
+            <td>
+                @if (order.Status == "Pending")
+                {
+                    <form asp-action="AssignDelivery" method="post" class="form-inline">
+                        <input type="hidden" name="orderId" value="@order.OrderID" />
+                        <div class="form-group">
+                            <select name="deliveryId" class="form-control" required>
+                                <option value="" disabled selected>Select Delivery Person</option>
+                                @foreach (var deliveryPerson in ViewBag.DeliveryPersons)
+                                {
+                                    <option value="@deliveryPerson.Id">@deliveryPerson.FullName</option>
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary ml-2">Assign</button>
+                    </form>
+                }
+                else if (order.Status == "Assigned to Delivery" || order.Status == "Out for Delivery")
+                {
+                    <form asp-action="UpdateOrderStatus" method="post" class="form-inline">
+                        <input type="hidden" name="orderId" value="@order.OrderID" />
+                        <input type="hidden" name="status" value="Delivered" />
+                        <button type="submit" class="btn btn-success">Mark as Delivered</button>
+                    </form>
+                }
+                else
+                {
+                    <span class="badge bg-success">Completed</span>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

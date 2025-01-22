@@ -1,0 +1,17 @@
+@model FoodDeliveryApp.Models.Restaurant
+
+<h1>@Model.Name</h1>
+<p>@Model.Description</p>
+<p><strong>Operating Hours:</strong> @Model.OperatingHours</p>
+<p><strong>Balance:</strong> $@Model.Balance</p>
+
+<div style="text-align: right;">
+    <a asp-action="EditRestaurant" class="btn btn-primary">Edit Info</a>
+</div>
+
+<hr />
+
+<div>
+    <a asp-controller="Restaurant" asp-action="MenuItems" class="btn btn-success">Manage Menu Items</a>
+    <a asp-controller="Restaurant" asp-action="Dashboard" class="btn btn-info">Check Orders</a>
+</div>
