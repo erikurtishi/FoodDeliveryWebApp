@@ -10,7 +10,8 @@ public class AppDbContext : IdentityDbContext<AppUser>
     {
         
     }
-
+    public DbSet<Restaurant> Restaurants { get; set; }
+    public DbSet<MenuItem> MenuItems { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
