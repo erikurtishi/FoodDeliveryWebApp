@@ -1,0 +1,33 @@
+@model FoodDeliveryApp.Models.Restaurant
+
+<h1>Create Restaurant</h1>
+
+<form asp-action="CreateRestaurant" method="post">
+    @Html.AntiForgeryToken()
+    
+    <div class="form-group">
+        <label for="Name">Restaurant Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="OperatingHours">Operating Hours</label>
+        <input asp-for="OperatingHours" class="form-control" />
+        <span asp-validation-for="OperatingHours" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="PhotoUrl">Photo URL</label>
+        <input asp-for="PhotoUrl" class="form-control" />
+        <span asp-validation-for="PhotoUrl" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

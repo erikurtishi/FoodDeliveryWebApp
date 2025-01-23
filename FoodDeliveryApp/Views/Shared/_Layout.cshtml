@@ -87,6 +87,22 @@
                     <img src="~/images/logo.png" alt="Logo" />
                     <span class="navbar-title">FoodDeliveryWebApp</span>
                 </a>
+                @if (User.IsInRole("Restaurant"))
+                {
+                    <a class="navbar-brand d-flex align-items-center" asp-controller="Restaurant" asp-action="Index">
+                        <span class="nav-link">Restaurant Dashboard</span>
+                    </a>
+                    <a class="navbar-brand d-flex align-items-center" asp-controller="Restaurant" asp-action="Dashboard">
+                        <span class="nav-link">Check Orders</span>
+                    </a>
+                }
+                @if (User.IsInRole("Driver"))
+                {
+                <a class="navbar-brand d-flex align-items-center" asp-controller="Driver" asp-action="Index">
+                    <span class="nav-link">Dashboard</span>
+                </a>
+                }
+                
                 <div class="ms-auto">
                     <ul class="navbar-nav">
                         @if (SignInManager.IsSignedIn(User))

@@ -1,0 +1,38 @@
+<div class="row mt-4" id="menu-items-container">
+    @foreach (var menuItem in Model.MenuItems)
+    {
+        <div class="col-md-4 mb-4 menu-item" data-category-id="@menuItem.CategoryID">
+            <div class="card h-100">
+                <img src="@menuItem.PhotoUrl" class="card-img-top" alt="@menuItem.Name" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">@menuItem.Name</h5>
+                    <p class="card-text">@menuItem.Description</p>
+                    <p class="text-muted">@menuItem.Price.ToString("C")</p>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form asp-action="Checkout" asp-controller="Order" method="post">
+                            <input type="hidden" name="menuItemId" value="@menuItem.MenuItemID" />
+                            <div class="d-flex align-items-center mb-3">
+                                <label for="quantity-@menuItem.MenuItemID" class="me-2">Quantity:</label>
+                                <input type="number" id="quantity-@menuItem.MenuItemID" name="quantity" value="1" min="1" class="form-control w-25" />
+                            </div>
+                            <button type="submit" class="btn btn-success">Order Now</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-action="Login" asp-controller="Account" class="btn btn-primary">Login to Order</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (TempData["OrderSuccess"] != null)
+{
+    <div class="alert alert-success mt-3">
+        @TempData["OrderSuccess"]
+    </div>
+}

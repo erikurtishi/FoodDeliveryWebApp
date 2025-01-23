@@ -7,7 +7,7 @@ namespace FoodDeliveryApp.Controllers;
 
 public class AccountController : Controller
 {
-     private readonly IAccountRepository _accountRepository;
+    private readonly IAccountRepository _accountRepository;
 
     public AccountController(IAccountRepository accountRepository)
     {
