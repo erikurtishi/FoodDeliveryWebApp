@@ -1,127 +1,297 @@
 @model FoodDeliveryApp.Models.RegisterView
 
-<style>
-    .auth-card {
-        background: papayawhip;
-        border-radius: 12px;
-        width: 100%;
-        max-width: 700px;
-        padding: 2rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+<!-- Create User Header -->
+<div class="admin-hero-section">
+    <div class="admin-hero-content">
+        <h1 class="admin-title">
+            Create New <span class="gradient-text">User</span>
+        </h1>
+        <p class="admin-subtitle">
+            Add new users to the platform and assign their roles
+        </p>
+    </div>
+</div>
 
-    .auth-card h2 {
-        color: #ff9800;
-        font-weight: 600;
-        text-align: center;
-        margin-bottom: 1.5rem;
-    }
-
-    .btn-primary {
-        background-color: #ff9800;
-        border-color: #ff9800;
-        color: white;
-        text-decoration: none;
-        padding: 10px 20px;
-        font-size: 1rem;
-        border-radius: 8px;
-        display: inline-block;
-        transition: background-color 0.3s ease, border-color 0.3s ease;
-        text-align: center;
-    }
-
-    .btn-primary:hover {
-        background-color: #e68900;
-        border-color: #e68900;
-    }
-
-    .form-control {
-        background-color: #fff6e9;
-        border: 1px solid #ff9800;
-        color: #333;
-        border-radius: 8px;
-        padding: 10px;
-        transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-
-    .form-control:focus {
-        border-color: #ff9800;
-        box-shadow: 0 0 0 0.2rem rgba(255, 152, 0, 0.25);
-    }
-
-    .auth-footer {
-        text-align: center;
-        margin-top: 1rem;
-    }
-</style>
-
-<div class="container py-4 d-flex justify-content-center align-items-center">
-    <div class="auth-card">
-        <h2>Create a New User</h2>
+<div class="container py-4">
+    <div class="auth-card glass-card" data-aos="fade-up">
         <form asp-action="CreateUser" method="post">
             <div class="row">
                 <!-- Full Name -->
-                <div class="col-md-6 mb-3">
-                    <label asp-for="FullName" class="form-label"></label>
-                    <input asp-for="FullName" class="form-control" />
-                    <span asp-validation-for="FullName" class="text-danger"></span>
+                <div class="col-md-6 mb-4">
+                    <div class="form-group">
+                        <label asp-for="FullName" class="form-label">Full Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
+                        </div>
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
                 </div>
 
                 <!-- Email -->
-                <div class="col-md-6 mb-3">
-                    <label asp-for="Email" class="form-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                <div class="col-md-6 mb-4">
+                    <div class="form-group">
+                        <label asp-for="Email" class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <input asp-for="Email" class="form-control" placeholder="Enter email address" />
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
                 </div>
 
                 <!-- Address -->
-                <div class="col-md-6 mb-3">
-                    <label asp-for="Address" class="form-label"></label>
-                    <input asp-for="Address" class="form-control" />
-                    <span asp-validation-for="Address" class="text-danger"></span>
+                <div class="col-md-6 mb-4">
+                    <div class="form-group">
+                        <label asp-for="Address" class="form-label">Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <input asp-for="Address" class="form-control" placeholder="Enter address" />
+                        </div>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
                 </div>
 
                 <!-- Age -->
-                <div class="col-md-6 mb-3">
-                    <label asp-for="Age" class="form-label"></label>
-                    <input asp-for="Age" class="form-control" type="number" min="18" />
-                    <span asp-validation-for="Age" class="text-danger"></span>
+                <div class="col-md-6 mb-4">
+                    <div class="form-group">
+                        <label asp-for="Age" class="form-label">Age</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
+                            <input asp-for="Age" class="form-control" type="number" min="18" placeholder="Enter age" />
+                        </div>
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
                 </div>
 
                 <!-- Password -->
-                <div class="col-md-6 mb-3">
-                    <label asp-for="Password" class="form-label"></label>
-                    <input asp-for="Password" class="form-control" type="password" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                <div class="col-md-6 mb-4">
+                    <div class="form-group">
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input asp-for="Password" class="form-control" type="password" placeholder="Enter password" />
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
                 </div>
 
                 <!-- Confirm Password -->
-                <div class="col-md-6 mb-3">
-                    <label asp-for="ConfirmPassword" class="form-label"></label>
-                    <input asp-for="ConfirmPassword" class="form-control" type="password" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                <div class="col-md-6 mb-4">
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Confirm password" />
+                        </div>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
                 </div>
 
                 <!-- Phone Number -->
-                <div class="col-md-6 mb-3">
-                    <label asp-for="PhoneNumber" class="form-label"></label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <div class="col-md-6 mb-4">
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="Enter phone number" />
+                        </div>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
                 </div>
 
                 <!-- Role -->
-                <div class="col-md-6 mb-3">
-                    <label for="Role" class="form-label">Role</label>
-                    <select name="role" class="form-control">
-                        <option value="" disabled selected>Select Role</option>
-                        <option value="Restaurant">Restaurant</option>
-                        <option value="Driver">Driver</option>
-                    </select>
+                <div class="col-md-6 mb-4">
+                    <div class="form-group">
+                        <label for="Role" class="form-label">User Role</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                            <select name="role" class="form-control">
+                                <option value="" disabled selected>Select user role</option>
+                                <option value="Restaurant">Restaurant Owner</option>
+                                <option value="Driver">Delivery Driver</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100 fw-bold">Create User</button>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-user-plus me-2"></i>Create User
+                </button>
+                <a href="@Url.Action("Index", "Admin")" class="btn btn-outline">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                </a>
+            </div>
         </form>
     </div>
 </div>
+
+<style>
+    :root {
+        --primary-orange: #FF6B35;
+        --secondary-orange: #FF9F1C;
+        --dark-orange: #E85D04;
+        --light-orange: #FFE0D4;
+        --white: #FFFFFF;
+        --dark-text: #2D3142;
+        --light-text: #6B7280;
+        --glass-bg: rgba(255, 255, 255, 0.95);
+        --glass-border: rgba(255, 255, 255, 0.3);
+        --orange-gradient: linear-gradient(135deg, #FF6B35, #FF4E00);
+        --orange-glow: 0 0 20px rgba(255, 107, 53, 0.3);
+    }
+
+    .admin-hero-section {
+        position: relative;
+        padding: 4rem 0;
+        background: linear-gradient(135deg, rgba(255, 224, 212, 0.4) 0%, rgba(255, 255, 255, 0.8) 100%);
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    .admin-hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .admin-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+    }
+
+    .admin-subtitle {
+        font-size: 1.2rem;
+        color: var(--light-text);
+        margin-bottom: 2rem;
+    }
+
+    .gradient-text {
+        background: var(--orange-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        transition: all 0.3s ease;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: var(--dark-text);
+        margin-bottom: 0.5rem;
+    }
+
+    .input-group {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--glass-border);
+        transition: all 0.3s ease;
+    }
+
+    .input-group:focus-within {
+        border-color: var(--primary-orange);
+        box-shadow: var(--orange-glow);
+    }
+
+    .input-group-text {
+        background: var(--light-orange);
+        border: none;
+        color: var(--primary-orange);
+    }
+
+    .form-control {
+        border: none;
+        padding: 0.75rem 1rem;
+        background: var(--white);
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: var(--orange-gradient);
+        border: none;
+        color: var(--white);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--orange-glow);
+    }
+
+    .btn-outline {
+        border: 2px solid var(--primary-orange);
+        color: var(--primary-orange);
+        background: transparent;
+    }
+
+    .btn-outline:hover {
+        background: var(--primary-orange);
+        color: var(--white);
+    }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    @@media (max-width: 768px) {
+        .admin-title {
+            font-size: 2rem;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .glass-card {
+            margin: 0 1rem;
+        }
+    }
+</style>
+
+<!-- AOS Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+    });
+</script>
 

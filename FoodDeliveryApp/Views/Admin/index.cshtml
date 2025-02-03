@@ -2,45 +2,269 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
+<!-- Admin Dashboard Header -->
+<div class="admin-hero-section">
+    <div class="admin-hero-content">
+        <h1 class="admin-title">
+            Welcome to <span class="gradient-text">Admin Dashboard</span>
+        </h1>
+        <p class="admin-subtitle">
+            Manage your platform's users, restaurants, and delivery operations efficiently
+        </p>
+    </div>
+</div>
+
+<!-- Dashboard Stats -->
+<div class="dashboard-stats">
+    <div class="stat-card" data-aos="fade-up">
+        <div class="stat-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-content">
+            <h3>1,234</h3>
+            <p>Total Users</p>
+        </div>
+    </div>
+    <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-icon">
+            <i class="fas fa-utensils"></i>
+        </div>
+        <div class="stat-content">
+            <h3>156</h3>
+            <p>Restaurants</p>
+        </div>
+    </div>
+    <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-icon">
+            <i class="fas fa-motorcycle"></i>
+        </div>
+        <div class="stat-content">
+            <h3>89</h3>
+            <p>Active Drivers</p>
+        </div>
+    </div>
+    <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-icon">
+            <i class="fas fa-shopping-bag"></i>
+        </div>
+        <div class="stat-content">
+            <h3>2,567</h3>
+            <p>Total Orders</p>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<section class="quick-actions">
+    <h2 class="section-title">Quick <span class="gradient-text">Actions</span></h2>
+    <div class="actions-grid">
+        <a href="@Url.Action("CreateUser", "Admin")" class="action-card" data-aos="fade-up">
+            <div class="action-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h3>Create User</h3>
+            <p>Add new users to the platform</p>
+        </a>
+        <a href="#" class="action-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="action-icon">
+                <i class="fas fa-store"></i>
+            </div>
+            <h3>Manage Restaurants</h3>
+            <p>View and manage restaurant listings</p>
+        </a>
+        <a href="#" class="action-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="action-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <h3>View Orders</h3>
+            <p>Monitor and manage orders</p>
+        </a>
+        <a href="#" class="action-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="action-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <h3>Settings</h3>
+            <p>Configure platform settings</p>
+        </a>
+    </div>
+</section>
+
 <style>
-    .dashboard-card {
-        background: papayawhip;
-        border-radius: 12px;
-        width: 100%;
-        max-width: 700px;
-        padding: 2rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    :root {
+        --primary-orange: #FF6B35;
+        --secondary-orange: #FF9F1C;
+        --dark-orange: #E85D04;
+        --light-orange: #FFE0D4;
+        --white: #FFFFFF;
+        --dark-text: #2D3142;
+        --light-text: #6B7280;
+        --glass-bg: rgba(255, 255, 255, 0.95);
+        --glass-border: rgba(255, 255, 255, 0.3);
+        --orange-gradient: linear-gradient(135deg, #FF6B35, #FF4E00);
+        --orange-glow: 0 0 20px rgba(255, 107, 53, 0.3);
+    }
+
+    /* Admin Hero Section */
+    .admin-hero-section {
+        position: relative;
+        padding: 4rem 0;
+        background: linear-gradient(135deg, rgba(255, 224, 212, 0.4) 0%, rgba(255, 255, 255, 0.8) 100%);
+        margin-bottom: 3rem;
         text-align: center;
     }
 
-    .dashboard-card h2 {
-        color: #ff9800;
-        font-weight: 600;
+    .admin-hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .admin-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+    }
+
+    .admin-subtitle {
+        font-size: 1.2rem;
+        color: var(--light-text);
         margin-bottom: 2rem;
     }
 
-    .btn-primary {
-        background-color: #ff9800;
-        border-color: #ff9800;
-        color: white;
-        text-decoration: none;
-        padding: 10px 20px;
-        font-size: 1rem;
-        border-radius: 8px;
-        display: inline-block;
-        transition: background-color 0.3s ease, border-color 0.3s ease;
+    /* Dashboard Stats */
+    .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 2rem;
+        padding: 0 2rem;
+        max-width: 1200px;
+        margin: 0 auto 4rem;
     }
 
-    .btn-primary:hover {
-        background-color: #e68900;
-        border-color: #e68900;
+    .stat-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-orange);
+        box-shadow: var(--orange-glow);
+    }
+
+    .stat-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        background: var(--orange-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .stat-content h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin: 0;
+    }
+
+    .stat-content p {
+        color: var(--light-text);
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+        padding: 4rem 0;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .actions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 0 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .action-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        text-decoration: none;
+        color: var(--dark-text);
+        transition: all 0.3s ease;
+    }
+
+    .action-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--primary-orange);
+        box-shadow: var(--orange-glow);
+    }
+
+    .action-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary-orange);
+    }
+
+    .action-card h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .action-card p {
+        color: var(--light-text);
+        margin: 0;
+    }
+
+    @@media (max-width: 768px) {
+        .admin-title {
+            font-size: 2rem;
+        }
+
+        .dashboard-stats {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .actions-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+        }
     }
 </style>
 
-<div class="container py-4 d-flex justify-content-center align-items-center">
-    <div class="dashboard-card">
-        <h2>Admin Dashboard</h2>
-        <p>Manage your users and roles effectively.</p>
-        <a asp-action="CreateUser" class="btn-primary">Create New User</a>
-    </div>
-</div>
+<!-- AOS Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+    });
+</script>

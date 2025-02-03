@@ -1,61 +1,488 @@
 @model IEnumerable<FoodDeliveryApp.Models.Order>
 
-<h2>Assigned Orders</h2>
+<!-- Driver Dashboard Header -->
+<div class="admin-hero-section">
+    <div class="admin-hero-content">
+        <h1 class="admin-title">
+            Driver <span class="gradient-text">Dashboard</span>
+        </h1>
+        <p class="admin-subtitle">
+            Manage your deliveries and track your performance
+        </p>
+    </div>
+</div>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Order ID</th>
-            <th>Restaurant</th>
-            <th>User</th>
-            <th>Order Items</th>
-            <th>Total Amount</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var order in Model)
+<!-- Driver Stats -->
+<div class="dashboard-stats">
+    <div class="stat-card" data-aos="fade-up">
+        <div class="stat-icon">
+            <i class="fas fa-route"></i>
+        </div>
+        <div class="stat-content">
+            <h3>@Model.Count(x => x.Status == "Assigned to Delivery")</h3>
+            <p>Pending Deliveries</p>
+        </div>
+    </div>
+    <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stat-content">
+            <h3>@Model.Count(x => x.Status == "Delivered")</h3>
+            <p>Completed Today</p>
+        </div>
+    </div>
+    <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-icon">
+            <i class="fas fa-star"></i>
+        </div>
+        <div class="stat-content">
+            <h3>4.8</h3>
+            <p>Rating</p>
+        </div>
+    </div>
+    <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-icon">
+            <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="stat-content">
+            <h3>@Model.Where(x => x.Status == "Delivered").Sum(x => x.TotalAmount).ToString("C")</h3>
+            <p>Earnings Today</p>
+        </div>
+    </div>
+</div>
+
+<!-- Orders Section -->
+<section class="orders-section">
+    <h2 class="section-title">Active <span class="gradient-text">Orders</span></h2>
+    
+    <div class="orders-container" data-aos="fade-up">
+        @foreach (var order in Model.Where(o => o.Status != "Delivered"))
         {
-            <tr>
-                <td>@order.OrderID</td>
-                <td>@order.Restaurant?.Name ?? "Unknown"</td>
-                <td>@order.User?.Email ?? "Unknown"</td>
-                <td>
+            <div class="order-card glass-card">
+                <div class="order-header">
+                    <div class="order-id">
+                        <i class="fas fa-hashtag"></i>
+                        <span>Order #@order.OrderID</span>
+                    </div>
+                    <div class="order-status @order.Status.ToLower().Replace(" ", "-")">
+                        @order.Status
+                    </div>
+                </div>
+
+                <div class="order-details">
+                    <div class="detail-group">
+                        <i class="fas fa-store"></i>
+                        <div>
+                            <label>Restaurant</label>
+                            <p>@(order.Restaurant?.Name ?? "Unknown")</p>
+                        </div>
+                    </div>
+                    <div class="detail-group">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <label>Customer</label>
+                            <p>@(order.User?.Email ?? "Unknown")</p>
+                        </div>
+                    </div>
+                    <div class="detail-group">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <div>
+                            <label>Total Amount</label>
+                            <p>@order.TotalAmount.ToString("C")</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-items">
+                    <h4>Order Items</h4>
                     <ul>
                         @foreach (var item in order.OrderItems)
                         {
                             <li>
-                                <strong>@item.MenuItem.Name</strong> (x @item.Quantity) - @item.TotalPrice.ToString("C")
+                                <span class="item-name">@item.MenuItem.Name</span>
+                                <span class="item-quantity">x @item.Quantity</span>
+                                <span class="item-price">@item.TotalPrice.ToString("C")</span>
                             </li>
                         }
                     </ul>
-                </td>
-                <td>@order.TotalAmount.ToString("C")</td>
-                <td>@order.Status</td>
-                <td>
-                    @if (order.Status == "Assigned to Delivery")
-                    {
-                        <form asp-action="UpdateOrderStatus" method="post" class="form-inline">
+                </div>
+
+                @if (order.Status == "Assigned to Delivery")
+                {
+                    <div class="order-actions">
+                        <form asp-action="UpdateOrderStatus" method="post">
                             <input type="hidden" name="orderId" value="@order.OrderID" />
-                            <div class="form-group">
-                                <select name="status" class="form-control" required>
-                                    <option value="Delivered">Delivered</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-success ml-2">Update Status</button>
+                            <button type="submit" name="status" value="Out for Delivery" class="btn btn-primary">
+                                <i class="fas fa-motorcycle me-2"></i>Start Delivery
+                            </button>
                         </form>
-                    }
-                    else if (order.Status == "Out for Delivery")
-                    {
-                        <span class="badge bg-warning">Out for Delivery</span>
-                    }
-                    else if (order.Status == "Delivered")
-                    {
-                        <span class="badge bg-success">Delivered</span>
-                    }
-                </td>
-            </tr>
+                    </div>
+                }
+                else if (order.Status == "Out for Delivery")
+                {
+                    <div class="order-actions">
+                        <form asp-action="UpdateOrderStatus" method="post">
+                            <input type="hidden" name="orderId" value="@order.OrderID" />
+                            <button type="submit" name="status" value="Delivered" class="btn btn-success">
+                                <i class="fas fa-check-circle me-2"></i>Mark as Delivered
+                            </button>
+                        </form>
+                    </div>
+                }
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</section>
+
+<!-- Completed Orders Section -->
+<section class="orders-section">
+    <h2 class="section-title">Completed <span class="gradient-text">Orders</span></h2>
+    
+    <div class="orders-container" data-aos="fade-up">
+        @foreach (var order in Model.Where(o => o.Status == "Delivered").Take(5))
+        {
+            <div class="order-card glass-card completed">
+                <div class="order-header">
+                    <div class="order-id">
+                        <i class="fas fa-hashtag"></i>
+                        <span>Order #@order.OrderID</span>
+                    </div>
+                    <div class="order-status delivered">
+                        <i class="fas fa-check-circle me-2"></i>Delivered
+                    </div>
+                </div>
+
+                <div class="order-details">
+                    <div class="detail-group">
+                        <i class="fas fa-store"></i>
+                        <div>
+                            <label>Restaurant</label>
+                            <p>@(order.Restaurant?.Name ?? "Unknown")</p>
+                        </div>
+                    </div>
+                    <div class="detail-group">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <div>
+                            <label>Total Amount</label>
+                            <p>@order.TotalAmount.ToString("C")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<style>
+    :root {
+        --primary-orange: #FF6B35;
+        --secondary-orange: #FF9F1C;
+        --dark-orange: #E85D04;
+        --light-orange: #FFE0D4;
+        --white: #FFFFFF;
+        --dark-text: #2D3142;
+        --light-text: #6B7280;
+        --glass-bg: rgba(255, 255, 255, 0.95);
+        --glass-border: rgba(255, 255, 255, 0.3);
+        --orange-gradient: linear-gradient(135deg, #FF6B35, #FF4E00);
+        --orange-glow: 0 0 20px rgba(255, 107, 53, 0.3);
+        --success-color: #10B981;
+        --warning-color: #F59E0B;
+    }
+
+    .admin-hero-section {
+        position: relative;
+        padding: 4rem 0;
+        background: linear-gradient(135deg, rgba(255, 224, 212, 0.4) 0%, rgba(255, 255, 255, 0.8) 100%);
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    .admin-hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .admin-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+    }
+
+    .admin-subtitle {
+        font-size: 1.2rem;
+        color: var(--light-text);
+        margin-bottom: 2rem;
+    }
+
+    .gradient-text {
+        background: var(--orange-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Dashboard Stats */
+    .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 2rem;
+        padding: 0 2rem;
+        max-width: 1200px;
+        margin: 0 auto 4rem;
+    }
+
+    .stat-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-orange);
+        box-shadow: var(--orange-glow);
+    }
+
+    .stat-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        background: var(--orange-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .stat-content h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin: 0;
+    }
+
+    .stat-content p {
+        color: var(--light-text);
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    /* Orders Section */
+    .orders-section {
+        padding: 2rem 0;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .orders-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        padding: 0 2rem;
+    }
+
+    .order-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .order-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-orange);
+        box-shadow: var(--orange-glow);
+    }
+
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .order-id {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: var(--dark-text);
+    }
+
+    .order-status {
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .order-status.assigned-to-delivery {
+        background: var(--warning-color);
+        color: var(--white);
+    }
+
+    .order-status.out-for-delivery {
+        background: var(--primary-orange);
+        color: var(--white);
+    }
+
+    .order-status.delivered {
+        background: var(--success-color);
+        color: var(--white);
+    }
+
+    .order-details {
+        display: grid;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .detail-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .detail-group i {
+        color: var(--primary-orange);
+        font-size: 1.25rem;
+        margin-top: 0.25rem;
+    }
+
+    .detail-group label {
+        color: var(--light-text);
+        font-size: 0.875rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .detail-group p {
+        color: var(--dark-text);
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .order-items {
+        margin-bottom: 1.5rem;
+    }
+
+    .order-items h4 {
+        color: var(--dark-text);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .order-items ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .order-items li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    .order-items li:last-child {
+        border-bottom: none;
+    }
+
+    .item-name {
+        font-weight: 500;
+        color: var(--dark-text);
+    }
+
+    .item-quantity {
+        color: var(--light-text);
+    }
+
+    .item-price {
+        font-weight: 600;
+        color: var(--primary-orange);
+    }
+
+    .order-actions {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    .btn-primary {
+        background: var(--orange-gradient);
+        border: none;
+        color: var(--white);
+    }
+
+    .btn-success {
+        background: var(--success-color);
+        border: none;
+        color: var(--white);
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--orange-glow);
+    }
+
+    .completed {
+        opacity: 0.8;
+    }
+
+    @@media (max-width: 768px) {
+        .admin-title {
+            font-size: 2rem;
+        }
+
+        .dashboard-stats {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .orders-container {
+            grid-template-columns: 1fr;
+        }
+
+        .order-card {
+            margin: 0 1rem;
+        }
+    }
+</style>
+
+<!-- AOS Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+    });
+</script>

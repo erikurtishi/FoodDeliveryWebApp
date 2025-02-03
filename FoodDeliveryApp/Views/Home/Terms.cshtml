@@ -1,0 +1,275 @@
+@{
+    ViewData["Title"] = "Terms of Service";
+}
+
+<div class="terms-section">
+    <!-- Hero Section -->
+    <div class="hero-section text-center mb-5" data-aos="fade-up">
+        <h1 class="display-4 mb-4">Terms of <span class="highlight-text">Service</span></h1>
+        <p class="lead mb-4">Please read these terms carefully before using our services</p>
+        <div class="brand-accent mx-auto"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-12" data-aos="fade-up">
+            <div class="terms-content glass-effect p-4">
+                <!-- Last Updated -->
+                <div class="text-muted mb-4">Last Updated: @DateTime.Now.ToString("MMMM dd, yyyy")</div>
+
+                <!-- Agreement Cards -->
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="agreement-card glass-effect p-4 text-center">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h4>Agreement to Terms</h4>
+                            <p>By accessing our service, you agree to be bound by these Terms.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="agreement-card glass-effect p-4 text-center">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <h4>User Responsibilities</h4>
+                            <p>You are responsible for maintaining your account security.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="agreement-card glass-effect p-4 text-center">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4>Privacy Protection</h4>
+                            <p>We are committed to protecting your privacy and data.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Terms -->
+                <section class="terms-section mb-5" data-aos="fade-up">
+                    <h2 class="section-title mb-4">Key Terms</h2>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="key-terms-card glass-effect p-4">
+                                <h4><i class="fas fa-utensils me-2"></i>Service Terms</h4>
+                                <ul class="terms-list">
+                                    <li>Order placement and delivery</li>
+                                    <li>Payment processing</li>
+                                    <li>Restaurant partnerships</li>
+                                    <li>Delivery zones</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="key-terms-card glass-effect p-4">
+                                <h4><i class="fas fa-user-shield me-2"></i>User Terms</h4>
+                                <ul class="terms-list">
+                                    <li>Account creation</li>
+                                    <li>User conduct</li>
+                                    <li>Content sharing</li>
+                                    <li>Account termination</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Service Usage -->
+                <section class="terms-section mb-5" data-aos="fade-up">
+                    <h2 class="section-title mb-4">Service Usage</h2>
+                    <div class="usage-content glass-effect p-4">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="usage-item mb-4">
+                                    <h4><i class="fas fa-check-circle me-2"></i>Acceptable Use</h4>
+                                    <p>Users must use the service for legitimate food ordering and delivery purposes only.</p>
+                                </div>
+                                <div class="usage-item">
+                                    <h4><i class="fas fa-times-circle me-2"></i>Prohibited Activities</h4>
+                                    <p>Any fraudulent or illegal activities are strictly prohibited and may result in account termination.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="usage-item mb-4">
+                                    <h4><i class="fas fa-exclamation-circle me-2"></i>Limitations</h4>
+                                    <p>Service availability may be limited by location, restaurant hours, and delivery capacity.</p>
+                                </div>
+                                <div class="usage-item">
+                                    <h4><i class="fas fa-info-circle me-2"></i>Modifications</h4>
+                                    <p>We reserve the right to modify or discontinue the service at any time.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Liability and Disputes -->
+                <section class="terms-section mb-5" data-aos="fade-up">
+                    <h2 class="section-title mb-4">Liability and Disputes</h2>
+                    <div class="liability-cards">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="liability-card glass-effect p-4 text-center">
+                                    <div class="icon-wrapper mb-3">
+                                        <i class="fas fa-gavel"></i>
+                                    </div>
+                                    <h4>Dispute Resolution</h4>
+                                    <p>All disputes shall be resolved through arbitration.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="liability-card glass-effect p-4 text-center">
+                                    <div class="icon-wrapper mb-3">
+                                        <i class="fas fa-balance-scale"></i>
+                                    </div>
+                                    <h4>Limitation of Liability</h4>
+                                    <p>Our liability is limited as permitted by law.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="liability-card glass-effect p-4 text-center">
+                                    <div class="icon-wrapper mb-3">
+                                        <i class="fas fa-hand-holding-heart"></i>
+                                    </div>
+                                    <h4>Indemnification</h4>
+                                    <p>Users agree to indemnify us against claims.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact Section -->
+                <section class="terms-section" data-aos="fade-up">
+                    <h2 class="section-title mb-4">Questions About Terms?</h2>
+                    <div class="contact-card glass-effect p-4 text-center">
+                        <p class="mb-4">If you have any questions about these Terms of Service, please contact us:</p>
+                        <div class="d-flex justify-content-center gap-4">
+                            <a href="mailto:terms@foodiehub.com" class="btn btn-primary">
+                                <i class="fas fa-envelope me-2"></i>Email Us
+                            </a>
+                            <a href="/contact" class="btn btn-outline-primary">
+                                <i class="fas fa-phone me-2"></i>Contact Support
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .terms-section {
+            padding: 2rem 0;
+        }
+
+        .hero-section {
+            padding: 3rem 0;
+        }
+
+        .brand-accent {
+            height: 3px;
+            width: 100px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            margin: 0 auto;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+        }
+
+        .icon-wrapper {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin: 0 auto;
+        }
+
+        .terms-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .terms-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .terms-list li:before {
+            content: '•';
+            color: #ff8e53;
+            position: absolute;
+            left: 0;
+        }
+
+        .terms-list li:last-child {
+            border-bottom: none;
+        }
+
+        .agreement-card, .liability-card {
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .agreement-card:hover, .liability-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-text {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .usage-item h4 {
+            color: #000;
+            margin-bottom: 1rem;
+        }
+
+        .usage-item p {
+            color: #666;
+        }
+
+        .btn-primary, .btn-outline-primary {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary {
+            border: 2px solid #ff8e53;
+            color: #ff8e53;
+        }
+
+        .btn-outline-primary:hover {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            border-color: transparent;
+            color: white;
+        }
+    </style>
+} 

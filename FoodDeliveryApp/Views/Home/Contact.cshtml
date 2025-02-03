@@ -1,0 +1,200 @@
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="contact-section">
+    <!-- Hero Section -->
+    <div class="hero-section text-center mb-5" data-aos="fade-up">
+        <h1 class="display-4 mb-4">Contact <span class="highlight-text">Us</span></h1>
+        <p class="lead mb-4">We'd love to hear from you</p>
+        <div class="brand-accent mx-auto"></div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Contact Form -->
+        <div class="col-lg-7" data-aos="fade-right">
+            <div class="contact-form-card glass-effect p-4">
+                <h2 class="section-title mb-4">Send us a Message</h2>
+                <form class="contact-form">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control modern-input" id="name" placeholder="Your Name">
+                                <label for="name">Your Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="email" class="form-control modern-input" id="email" placeholder="Your Email">
+                                <label for="email">Your Email</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control modern-input" id="subject" placeholder="Subject">
+                                <label for="subject">Subject</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control modern-input" id="message" style="height: 150px" placeholder="Your Message"></textarea>
+                                <label for="message">Your Message</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="col-lg-5" data-aos="fade-left">
+            <div class="contact-info-card glass-effect p-4">
+                <h2 class="section-title mb-4">Get in Touch</h2>
+                
+                <!-- Office Location -->
+                <div class="contact-info-item mb-4">
+                    <div class="icon-wrapper mb-3">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h4>Our Location</h4>
+                    <p>123 Foodie Street, Cuisine City<br>Food State, 12345</p>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="contact-info-item mb-4">
+                    <div class="icon-wrapper mb-3">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h4>Contact Details</h4>
+                    <p class="mb-2">
+                        <i class="fas fa-phone me-2"></i>
+                        +1 (555) 123-4567
+                    </p>
+                    <p class="mb-2">
+                        <i class="fas fa-envelope me-2"></i>
+                        support@foodiehub.com
+                    </p>
+                </div>
+
+                <!-- Business Hours -->
+                <div class="contact-info-item mb-4">
+                    <div class="icon-wrapper mb-3">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4>Business Hours</h4>
+                    <p class="mb-2">Monday - Friday: 9:00 AM - 10:00 PM</p>
+                    <p class="mb-2">Saturday - Sunday: 10:00 AM - 11:00 PM</p>
+                </div>
+
+                <!-- Social Media -->
+                <div class="contact-info-item">
+                    <div class="icon-wrapper mb-3">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h4>Follow Us</h4>
+                    <div class="social-links-modern">
+                        <a href="#" class="social-icon-modern" title="Facebook">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon-modern" title="Twitter">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon-modern" title="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon-modern" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="map-section mt-5" data-aos="fade-up">
+        <div class="glass-effect p-4">
+            <div class="ratio ratio-21x9">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30596073366!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1647043099715!5m2!1sen!2s" 
+                    style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .contact-section {
+            padding: 2rem 0;
+        }
+
+        .hero-section {
+            padding: 3rem 0;
+        }
+
+        .brand-accent {
+            height: 3px;
+            width: 100px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+        }
+
+        .modern-input {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .modern-input:focus {
+            box-shadow: 0 0 0 0.25rem rgba(255, 142, 83, 0.25);
+            border-color: #ff8e53;
+        }
+
+        .icon-wrapper {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .contact-info-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-info-item h4 {
+            color: #000;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .contact-info-item p {
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        .highlight-text {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-control:not(:placeholder-shown) ~ label {
+            color: #ff8e53;
+        }
+    </style>
+} 

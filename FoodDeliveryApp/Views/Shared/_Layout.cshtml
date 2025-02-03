@@ -120,37 +120,138 @@
             </div>
         </main>
 
-        <footer class="glass-effect mt-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4" data-aos="fade-right">
-                        <div class="footer-brand">
-                            <i class="fas fa-utensils float"></i>
-                            <h3 class="glow">FoodieHub</h3>
+        <footer class="glass-effect mt-5 footer-modern">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6" data-aos="fade-right" data-aos-duration="1000">
+                        <div class="footer-brand mb-4 animate__animated animate__fadeIn">
+                            <div class="brand-wrapper">
+                                <i class="fas fa-utensils float glow"></i>
+                                <h3 class="glow brand-text">FoodieHub</h3>
+                            </div>
+                            <div class="brand-accent"></div>
                         </div>
-                        <p class="footer-tagline">Delivering happiness to your doorstep</p>
+                        <p class="footer-tagline mb-4 animate__animated animate__fadeIn animate__delay-1s">
+                            <span class="highlight-text">Delivering happiness</span> to your doorstep, one meal at a time. 
+                            Experience the best local restaurants with just a few clicks.
+                        </p>
+                        <div class="newsletter-form animate__animated animate__fadeInUp animate__delay-2s">
+                            <h5 class="mb-3 section-title">Stay Updated</h5>
+                            <div class="input-group newsletter-input-group">
+                                <input type="email" class="form-control modern-input" placeholder="Enter your email">
+                                <button class="btn btn-primary glow pulse-button" type="button">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span>Subscribe</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-4" data-aos="fade-up">
-                        <h5>Quick Links</h5>
-                        <ul class="footer-links">
-                            <li><a href="#" class="glow"><i class="fas fa-angle-right"></i> About Us</a></li>
-                            <li><a href="#" class="glow"><i class="fas fa-angle-right"></i> Contact</a></li>
-                            <li><a asp-controller="Home" asp-action="Privacy" class="glow"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
-                            <li><a href="#" class="glow"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+                    <div class="col-lg-2 col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <h5 class="mb-4 section-title">Quick Links</h5>
+                        <ul class="footer-links modern-links">
+                            <li class="animate__animated animate__fadeInRight animate__delay-1s">
+                                <a href="#" class="glow link-item">
+                                    <i class="fas fa-angle-right"></i>
+                                    <span>About Us</span>
+                                </a>
+                            </li>
+                            <li class="animate__animated animate__fadeInRight animate__delay-2s">
+                                <a href="#" class="glow link-item">
+                                    <i class="fas fa-angle-right"></i>
+                                    <span>Our Services</span>
+                                </a>
+                            </li>
+                            <li class="animate__animated animate__fadeInRight animate__delay-3s">
+                                <a href="#" class="glow link-item">
+                                    <i class="fas fa-angle-right"></i>
+                                    <span>Contact</span>
+                                </a>
+                            </li>
+                            <li class="animate__animated animate__fadeInRight animate__delay-4s">
+                                <a asp-controller="Home" asp-action="Privacy" class="glow link-item">
+                                    <i class="fas fa-angle-right"></i>
+                                    <span>Privacy Policy</span>
+                                </a>
+                            </li>
+                            <li class="animate__animated animate__fadeInRight animate__delay-5s">
+                                <a href="#" class="glow link-item">
+                                    <i class="fas fa-angle-right"></i>
+                                    <span>Terms of Service</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
-                    <div class="col-md-4" data-aos="fade-left">
-                        <h5>Connect With Us</h5>
-                        <div class="social-links">
-                            <a href="#" class="social-icon glow"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="social-icon glow"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-icon glow"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="social-icon glow"><i class="fab fa-linkedin-in"></i></a>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                        <h5 class="mb-4 section-title">Our Services</h5>
+                        <ul class="footer-links modern-links">
+                            <li class="animate__animated animate__fadeInUp animate__delay-1s">
+                                <a href="#" class="glow link-item">
+                                    <i class="fas fa-utensils service-icon"></i>
+                                    <span>Restaurant Partners</span>
+                                </a>
+                            </li>
+                            <li class="animate__animated animate__fadeInUp animate__delay-2s">
+                                <a href="#" class="glow link-item">
+                                    <i class="fas fa-motorcycle service-icon"></i>
+                                    <span>Become a Driver</span>
+                                </a>
+                            </li>
+                            <li class="animate__animated animate__fadeInUp animate__delay-3s">
+                                <a href="#" class="glow link-item">
+                                    <i class="fas fa-gift service-icon"></i>
+                                    <span>Gift Cards</span>
+                                </a>
+                            </li>
+                            <li class="animate__animated animate__fadeInUp animate__delay-4s">
+                                <a href="#" class="glow link-item">
+                                    <i class="fas fa-headset service-icon"></i>
+                                    <span>24/7 Support</span>
+                                </a>
+                            </li>
+                            <li class="animate__animated animate__fadeInUp animate__delay-5s">
+                                <a href="#" class="glow link-item">
+                                    <i class="fas fa-mobile-alt service-icon"></i>
+                                    <span>Mobile App</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
+                        <h5 class="mb-4 section-title">Connect With Us</h5>
+                        <div class="social-links-modern">
+                            <a href="#" class="social-icon-modern" title="Facebook">
+                                <i class="fa-brands fa-facebook"></i>
+                            </a>
+                            <a href="#" class="social-icon-modern" title="Twitter">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-icon-modern" title="Instagram">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-icon-modern" title="LinkedIn">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                        <div class="contact-info-modern animate__animated animate__fadeIn animate__delay-5s">
+                            <h5 class="mb-3 section-title">Contact Info</h5>
+                            <div class="contact-item">
+                                <i class="fas fa-phone-alt contact-icon glow"></i>
+                                <p class="mb-2">+1 (555) 123-4567</p>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope contact-icon glow"></i>
+                                <p class="mb-2">support@foodiehub.com</p>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt contact-icon glow"></i>
+                                <p class="mb-0">123 Foodie Street, Cuisine City</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="footer-bottom">
-                    <p>&copy; @DateTime.Now.Year FoodieHub. All rights reserved.</p>
+                <hr class="footer-divider my-4">
+                <div class="footer-bottom text-center animate__animated animate__fadeIn">
+                    <p class="mb-0 copyright-text">&copy; @DateTime.Now.Year <span class="highlight-text">FoodieHub</span>. All rights reserved.</p>
                 </div>
             </div>
         </footer>

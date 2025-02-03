@@ -1,6 +1,271 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="privacy-section">
+    <!-- Hero Section -->
+    <div class="hero-section text-center mb-5" data-aos="fade-up">
+        <h1 class="display-4 mb-4">Privacy <span class="highlight-text">Policy</span></h1>
+        <p class="lead mb-4">Your privacy is important to us</p>
+        <div class="brand-accent mx-auto"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-12" data-aos="fade-up">
+            <div class="privacy-content glass-effect p-4">
+                <!-- Last Updated -->
+                <div class="text-muted mb-4">Last Updated: @DateTime.Now.ToString("MMMM dd, yyyy")</div>
+
+                <!-- Introduction -->
+                <section class="policy-section mb-5">
+                    <h2 class="section-title mb-4">Introduction</h2>
+                    <p>Welcome to FoodieHub's Privacy Policy. This policy explains how we collect, use, disclose, and safeguard your information when you use our food delivery service.</p>
+                </section>
+
+                <!-- Information We Collect -->
+                <section class="policy-section mb-5" data-aos="fade-up">
+                    <h2 class="section-title mb-4">Information We Collect</h2>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="info-card glass-effect p-4">
+                                <div class="icon-wrapper mb-3">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <h4>Personal Information</h4>
+                                <ul class="policy-list">
+                                    <li>Name and contact details</li>
+                                    <li>Delivery addresses</li>
+                                    <li>Payment information</li>
+                                    <li>Email address</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card glass-effect p-4">
+                                <div class="icon-wrapper mb-3">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <h4>Usage Information</h4>
+                                <ul class="policy-list">
+                                    <li>Device information</li>
+                                    <li>Order history</li>
+                                    <li>App usage data</li>
+                                    <li>Location data</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- How We Use Your Information -->
+                <section class="policy-section mb-5" data-aos="fade-up">
+                    <h2 class="section-title mb-4">How We Use Your Information</h2>
+                    <div class="usage-cards">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="usage-card glass-effect p-4">
+                                    <div class="icon-wrapper mb-3">
+                                        <i class="fas fa-truck"></i>
+                                    </div>
+                                    <h4>Service Delivery</h4>
+                                    <p>To process and deliver your orders efficiently</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="usage-card glass-effect p-4">
+                                    <div class="icon-wrapper mb-3">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <h4>Security</h4>
+                                    <p>To protect our services and your account</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="usage-card glass-effect p-4">
+                                    <div class="icon-wrapper mb-3">
+                                        <i class="fas fa-bullhorn"></i>
+                                    </div>
+                                    <h4>Communication</h4>
+                                    <p>To send important updates and promotions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Data Protection -->
+                <section class="policy-section mb-5" data-aos="fade-up">
+                    <h2 class="section-title mb-4">Data Protection</h2>
+                    <div class="protection-content glass-effect p-4">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <h4><i class="fas fa-lock me-2"></i>Security Measures</h4>
+                                <p>We implement appropriate technical and organizational measures to protect your personal data against unauthorized or unlawful processing, accidental loss, destruction, or damage.</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h4><i class="fas fa-user-shield me-2"></i>Data Retention</h4>
+                                <p>We retain your personal data only for as long as necessary to fulfill the purposes for which we collected it, including for legal, accounting, or reporting requirements.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Your Rights -->
+                <section class="policy-section mb-5" data-aos="fade-up">
+                    <h2 class="section-title mb-4">Your Rights</h2>
+                    <div class="rights-cards">
+                        <div class="row g-4">
+                            <div class="col-md-3">
+                                <div class="right-card glass-effect p-4 text-center">
+                                    <div class="icon-wrapper mb-3">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <h5>Right to Access</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="right-card glass-effect p-4 text-center">
+                                    <div class="icon-wrapper mb-3">
+                                        <i class="fas fa-edit"></i>
+                                    </div>
+                                    <h5>Right to Rectification</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="right-card glass-effect p-4 text-center">
+                                    <div class="icon-wrapper mb-3">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </div>
+                                    <h5>Right to Erasure</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="right-card glass-effect p-4 text-center">
+                                    <div class="icon-wrapper mb-3">
+                                        <i class="fas fa-ban"></i>
+                                    </div>
+                                    <h5>Right to Object</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact Us -->
+                <section class="policy-section" data-aos="fade-up">
+                    <h2 class="section-title mb-4">Contact Us</h2>
+                    <div class="contact-card glass-effect p-4">
+                        <p>If you have any questions about this Privacy Policy, please contact us:</p>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope me-2"></i>
+                                    <a href="mailto:privacy@foodiehub.com" class="text-decoration-none">privacy@foodiehub.com</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="contact-info">
+                                    <i class="fas fa-phone me-2"></i>
+                                    <a href="tel:+1234567890" class="text-decoration-none">+1 (234) 567-890</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .privacy-section {
+            padding: 2rem 0;
+        }
+
+        .hero-section {
+            padding: 3rem 0;
+        }
+
+        .brand-accent {
+            height: 3px;
+            width: 100px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            margin: 0 auto;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+        }
+
+        .icon-wrapper {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin: 0 auto;
+        }
+
+        .policy-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .policy-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .policy-list li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card, .usage-card, .right-card {
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover, .usage-card:hover, .right-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-text {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-info a {
+            color: #ff8e53;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #ff6b6b;
+        }
+    </style>
+}
