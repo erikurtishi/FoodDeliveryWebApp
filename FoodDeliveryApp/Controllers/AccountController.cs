@@ -2,16 +2,23 @@ using FoodDeliveryApp.Models;
 using FoodDeliveryApp.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace FoodDeliveryApp.Controllers;
 
 public class AccountController : Controller
 {
     private readonly IAccountRepository _accountRepository;
+    private readonly UserManager<AppUser> _userManager;
+    private readonly SignInManager<AppUser> _signInManager;
+    private readonly ILogger<AccountController> _logger;
 
-    public AccountController(IAccountRepository accountRepository)
+    public AccountController(IAccountRepository accountRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ILogger<AccountController> logger)
     {
         _accountRepository = accountRepository;
+        _userManager = userManager;
+        _signInManager = signInManager;
+        _logger = logger;
     }
 
     // GET: Register
@@ -26,30 +33,58 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Register(RegisterView model)
     {
-        if (ModelState.IsValid)
+        try
         {
-            var user = new AppUser
+            if (ModelState.IsValid)
             {
-                UserName = model.Email,
-                Email = model.Email,
-                FullName = model.FullName,
-                Address = model.Address,
-                PhoneNumber = model.PhoneNumber,
-                Age = model.Age ?? 0
-            };
+                _logger.LogInformation("Creating new user with email: {Email}", model.Email);
+                
+                // Check if user already exists
+                var existingUser = await _userManager.FindByEmailAsync(model.Email);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError(string.Empty, "Email is already registered.");
+                    return View(model);
+                }
 
-            var result = await _accountRepository.RegisterAsync(user, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("Index", "Home");
+                var user = new AppUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FullName = model.FullName,
+                    Address = model.Address,
+                    PhoneNumber = model.PhoneNumber,
+                    Age = model.Age ?? 0
+                };
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User created successfully");
+                    
+                    // Add user to BasicUser role
+                    await _userManager.AddToRoleAsync(user, "BasicUser");
+                    
+                    // Sign in the user immediately after registration
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
 
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
+            return View(model);
         }
-        return View(model);
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during user registration");
+            ModelState.AddModelError(string.Empty, "An error occurred during registration. Please try again.");
+            return View(model);
+        }
     }
 
     // GET: Login
