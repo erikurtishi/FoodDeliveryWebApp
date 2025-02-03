@@ -1,84 +1,377 @@
 @model IEnumerable<FoodDeliveryApp.Models.Order>
 
-<h2>Orders Dashboard</h2>
+<div class="dashboard-header">
+    <h1 class="gradient-text">Orders Dashboard</h1>
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <i class="fas fa-shopping-bag"></i>
+            <div class="stat-content">
+                <h3>@Model.Count()</h3>
+                <p>Total Orders</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-clock"></i>
+            <div class="stat-content">
+                <h3>@Model.Count(o => o.Status == "Pending")</h3>
+                <p>Pending Orders</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-truck"></i>
+            <div class="stat-content">
+                <h3>@Model.Count(o => o.Status == "Out for Delivery")</h3>
+                <p>Out for Delivery</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-check-circle"></i>
+            <div class="stat-content">
+                <h3>@Model.Count(o => o.Status == "Delivered")</h3>
+                <p>Completed Orders</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Order ID</th>
-        <th>User</th>
-        <th>Order Items</th>
-        <th>Total Amount</th>
-        <th>Status</th>
-        <th>Delivery Person</th>
-        <th>Delivery Status</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var order in Model)
-    {
-        <tr>
-            <td>@order.OrderID</td>
-            <td>@order.User?.Email ?? "Unknown"</td>
-            <td>
-                <ul>
-                    @foreach (var item in order.OrderItems)
-                    {
-                        <li>
-                            <strong>@item.MenuItem.Name</strong> (x @item.Quantity) - @item.TotalPrice.ToString("C")
-                        </li>
-                    }
-                </ul>
-            </td>
-            <td>@order.TotalAmount.ToString("C")</td>
-            <td>@order.Status</td>
-            <td>@order.DeliveryPerson?.FullName ?? "Not Assigned"</td>
-            <td>
-                @if (order.Status == "Delivered")
+<div class="orders-container glass-effect">
+    <div class="table-responsive">
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Order Details</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Delivery Person</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
                 {
-                    <span class="badge bg-success">Delivered</span>
-                }
-                else if (order.Status == "Out for Delivery")
-                {
-                    <span class="badge bg-warning">Out for Delivery</span>
-                }
-                else
-                {
-                    <span class="badge bg-secondary">Not Delivered</span>
-                }
-            </td>
-            <td>
-                @if (order.Status == "Pending")
-                {
-                    <form asp-action="AssignDelivery" method="post" class="form-inline">
-                        <input type="hidden" name="orderId" value="@order.OrderID" />
-                        <div class="form-group">
-                            <select name="deliveryId" class="form-control" required>
-                                <option value="" disabled selected>Select Delivery Person</option>
-                                @foreach (var deliveryPerson in ViewBag.DeliveryPersons)
+                    <tr class="order-row" data-aos="fade-up">
+                        <td>
+                            <span class="order-id">#@order.OrderID</span>
+                        </td>
+                        <td>
+                            <div class="customer-info">
+                                <i class="fas fa-user-circle"></i>
+                                <span>@(order.User?.Email ?? "Unknown")</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="order-items">
+                                @foreach (var item in order.OrderItems)
                                 {
-                                    <option value="@deliveryPerson.Id">@deliveryPerson.FullName</option>
+                                    <div class="order-item">
+                                        <span class="item-name">@item.MenuItem.Name</span>
+                                        <span class="item-quantity">x @item.Quantity</span>
+                                        <span class="item-price">@item.TotalPrice.ToString("C")</span>
+                                    </div>
                                 }
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary ml-2">Assign</button>
-                    </form>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="total-amount">@order.TotalAmount.ToString("C")</span>
+                        </td>
+                        <td>
+                            @{
+                                var statusClass = order.Status switch
+                                {
+                                    "Delivered" => "status-success",
+                                    "Out for Delivery" => "status-warning",
+                                    "Pending" => "status-pending",
+                                    _ => "status-default"
+                                };
+                            }
+                            <span class="status-badge @statusClass">
+                                <i class="fas fa-circle"></i>
+                                @order.Status
+                            </span>
+                        </td>
+                        <td>
+                            <div class="delivery-person">
+                                @if (order.DeliveryPerson != null)
+                                {
+                                    <i class="fas fa-motorcycle"></i>
+                                    <span>@order.DeliveryPerson.FullName</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Not Assigned</span>
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            @if (order.Status == "Pending")
+                            {
+                                <form asp-action="AssignDelivery" method="post" class="action-form">
+                                    <input type="hidden" name="orderId" value="@order.OrderID" />
+                                    <div class="form-group">
+                                        <select name="deliveryId" class="form-control custom-select" required>
+                                            <option value="" disabled selected>Select Driver</option>
+                                            @foreach (var deliveryPerson in ViewBag.DeliveryPersons)
+                                            {
+                                                <option value="@deliveryPerson.Id">@deliveryPerson.FullName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-user-plus me-1"></i>Assign
+                                    </button>
+                                </form>
+                            }
+                            else if (order.Status == "Assigned to Delivery" || order.Status == "Out for Delivery")
+                            {
+                                <form asp-action="UpdateOrderStatus" method="post" class="action-form">
+                                    <input type="hidden" name="orderId" value="@order.OrderID" />
+                                    <input type="hidden" name="status" value="Delivered" />
+                                    <button type="submit" class="btn btn-success btn-sm">
+                                        <i class="fas fa-check me-1"></i>Mark Delivered
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="completed-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                    Completed
+                                </span>
+                            }
+                        </td>
+                    </tr>
                 }
-                else if (order.Status == "Assigned to Delivery" || order.Status == "Out for Delivery")
-                {
-                    <form asp-action="UpdateOrderStatus" method="post" class="form-inline">
-                        <input type="hidden" name="orderId" value="@order.OrderID" />
-                        <input type="hidden" name="status" value="Delivered" />
-                        <button type="submit" class="btn btn-success">Mark as Delivered</button>
-                    </form>
-                }
-                else
-                {
-                    <span class="badge bg-success">Completed</span>
-                }
-            </td>
-        </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .dashboard-header {
+        margin-bottom: 2rem;
     }
-    </tbody>
-</table>
+
+    .gradient-text {
+        background: var(--orange-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(255, 107, 53, 0.1);
+        border-color: var(--primary-orange);
+    }
+
+    .stat-card i {
+        font-size: 2rem;
+        background: var(--orange-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .stat-content h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+        color: var(--dark-text);
+    }
+
+    .stat-content p {
+        margin: 0;
+        color: var(--light-text);
+        font-size: 0.9rem;
+    }
+
+    .orders-container {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        padding: 2rem;
+        overflow: hidden;
+    }
+
+    .custom-table {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .custom-table thead th {
+        background: rgba(255, 107, 53, 0.1);
+        color: var(--dark-text);
+        font-weight: 600;
+        padding: 1.2rem;
+        border: none;
+    }
+
+    .order-row {
+        transition: all 0.3s ease;
+    }
+
+    .order-row:hover {
+        background: rgba(255, 107, 53, 0.05);
+    }
+
+    .order-id {
+        font-weight: 600;
+        color: var(--primary-orange);
+    }
+
+    .customer-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .customer-info i {
+        color: var(--primary-orange);
+    }
+
+    .order-items {
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+    .order-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .item-name {
+        font-weight: 500;
+    }
+
+    .item-quantity {
+        color: var(--light-text);
+    }
+
+    .item-price {
+        color: var(--primary-orange);
+        font-weight: 500;
+    }
+
+    .total-amount {
+        font-weight: 700;
+        color: var(--primary-orange);
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .status-badge i {
+        font-size: 0.5rem;
+    }
+
+    .status-success {
+        background: rgba(52, 199, 89, 0.1);
+        color: #34c759;
+    }
+
+    .status-warning {
+        background: rgba(255, 159, 28, 0.1);
+        color: #ff9f1c;
+    }
+
+    .status-pending {
+        background: rgba(64, 156, 255, 0.1);
+        color: #409cff;
+    }
+
+    .delivery-person {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .delivery-person i {
+        color: var(--primary-orange);
+    }
+
+    .action-form {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .custom-select {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 8px;
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .btn-primary {
+        background: var(--orange-gradient);
+        border: none;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    }
+
+    .completed-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #34c759;
+        font-weight: 500;
+    }
+
+    @@media (max-width: 768px) {
+        .dashboard-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .orders-container {
+            padding: 1rem;
+        }
+
+        .custom-table {
+            font-size: 0.9rem;
+        }
+    }
+</style>

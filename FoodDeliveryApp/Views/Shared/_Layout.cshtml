@@ -7,153 +7,195 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FoodDeliveryWebApp</title>
+    <title>@ViewData["Title"] - FoodieHub</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            background-color: #fff6e9; /* Global light orange background */
-        }
-
-        .content-wrapper {
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        main {
-            flex: 1;
-            background-color: #fff6e9; /* Light orange background */
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .navbar-custom {
-            background-color: papayawhip;
-            border-bottom: 2px solid #ff9800;
-        }
-
-        .navbar-brand img {
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .navbar-title {
-            font-size: 1.5rem;
-            color: #ff9800;
-            font-weight: 600;
-        }
-
-        .nav-link {
-            color: #ff9800 !important;
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            background-color: papayawhip;
-            color: #ff9800;
-            padding: 20px 0;
-            text-align: center;
-            border-top: 2px solid #ff9800;
-        }
-
-        footer a {
-            color: #ff9800;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        footer p {
-            margin: 0;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
-<body>
-<div class="content-wrapper">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-custom">
-            <div class="container-fluid">
-                <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo.png" alt="Logo" />
-                    <span class="navbar-title">FoodDeliveryWebApp</span>
-                </a>
-                @if (User.IsInRole("Restaurant"))
-                {
-                    <a class="navbar-brand d-flex align-items-center" asp-controller="Restaurant" asp-action="Index">
-                        <span class="nav-link">Restaurant Dashboard</span>
+<body class="app-background">
+    <!-- Loading Screen -->
+    <div class="loading">
+        <div class="loading-content">
+            <div class="loading-spinner glow"></div>
+            <h3 class="mt-4 animate__animated animate__fadeIn">Loading Deliciousness...</h3>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <header>
+            <nav class="navbar navbar-expand-lg fixed-top">
+                <div class="container">
+                    <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index" data-aos="fade-right">
+                        <div class="brand-icon float">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <span class="brand-text glow">FoodieHub</span>
                     </a>
-                    <a class="navbar-brand d-flex align-items-center" asp-controller="Restaurant" asp-action="Dashboard">
-                        <span class="nav-link">Check Orders</span>
-                    </a>
-                }
-                @if (User.IsInRole("Driver"))
-                {
-                <a class="navbar-brand d-flex align-items-center" asp-controller="Driver" asp-action="Index">
-                    <span class="nav-link">Dashboard</span>
-                </a>
-                }
-                
-                <div class="ms-auto">
-                    <ul class="navbar-nav">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-link nav-link">
-                                        Logout (@{
+                    
+                    <button class="navbar-toggler glow" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            @if (User.IsInRole("Restaurant"))
+                            {
+                                <li class="nav-item" data-aos="fade-down" data-aos-delay="100">
+                                    <a class="nav-link" asp-controller="Restaurant" asp-action="Index">
+                                        <i class="fas fa-chart-line me-2"></i>Dashboard
+                                        <span class="nav-indicator"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" data-aos="fade-down" data-aos-delay="200">
+                                    <a class="nav-link" asp-controller="Restaurant" asp-action="Dashboard">
+                                        <i class="fas fa-clipboard-list me-2"></i>Orders
+                                        <span class="nav-indicator"></span>
+                                    </a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Driver"))
+                            {
+                                <li class="nav-item" data-aos="fade-down" data-aos-delay="100">
+                                    <a class="nav-link" asp-controller="Driver" asp-action="Index">
+                                        <i class="fas fa-motorcycle me-2"></i>Dashboard
+                                        <span class="nav-indicator"></span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+
+                        <div class="nav-right" data-aos="fade-left">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <div class="user-profile dropdown">
+                                    <button class="btn dropdown-toggle user-button glow" data-bs-toggle="dropdown">
+                                        <div class="avatar">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <span>@{
                                             var currentUser = await UserManager.GetUserAsync(User);
                                             if (currentUser != null)
                                             {
                                                 @currentUser.FullName
                                             }
-                                        })
+                                        }</span>
                                     </button>
-                                </form>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-action="Login" asp-controller="Account">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-action="Register" asp-controller="Account">Register</a>
-                            </li>
-                        }
-                    </ul>
+                                    <ul class="dropdown-menu glass-effect animate__animated animate__fadeIn">
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle me-2"></i>Profile</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                                <button type="submit" class="dropdown-item">
+                                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="auth-buttons">
+                                    <a class="btn btn-outline-primary me-2 glow" asp-action="Login" asp-controller="Account">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                                    </a>
+                                    <a class="btn btn-primary glow" asp-action="Register" asp-controller="Account">
+                                        <i class="fas fa-user-plus me-2"></i>Register
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main role="main" class="container mt-5 pt-4">
+            <div class="content-container glass-effect animate__animated animate__fadeIn" data-aos="fade-up">
+                @RenderBody()
+            </div>
+        </main>
+
+        <footer class="glass-effect mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4" data-aos="fade-right">
+                        <div class="footer-brand">
+                            <i class="fas fa-utensils float"></i>
+                            <h3 class="glow">FoodieHub</h3>
+                        </div>
+                        <p class="footer-tagline">Delivering happiness to your doorstep</p>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up">
+                        <h5>Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#" class="glow"><i class="fas fa-angle-right"></i> About Us</a></li>
+                            <li><a href="#" class="glow"><i class="fas fa-angle-right"></i> Contact</a></li>
+                            <li><a asp-controller="Home" asp-action="Privacy" class="glow"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                            <li><a href="#" class="glow"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-left">
+                        <h5>Connect With Us</h5>
+                        <div class="social-links">
+                            <a href="#" class="social-icon glow"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon glow"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon glow"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon glow"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; @DateTime.Now.Year FoodieHub. All rights reserved.</p>
                 </div>
             </div>
-        </nav>
-    </header>
+        </footer>
 
-    <main role="main" class="container">
-        @RenderBody()
-    </main>
+        <!-- Floating Action Button -->
+        <button class="fab glow" id="scrollToTop">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; @DateTime.Now.Year - FoodDeliveryWebApp</p>
-            <p>
-                Built by Foodini Team. <br />
-                <a asp-controller="Home" asp-action="Privacy">Privacy Policy</a> | <a href="#">Contact Us</a>
-            </p>
-        </div>
-    </footer>
-</div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", required: false)
+        // Loading Screen
+        window.addEventListener('load', function() {
+            document.querySelector('.loading').style.display = 'none';
+        });
+
+        // Scroll to Top
+        document.getElementById('scrollToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Show/Hide Scroll to Top button
+        window.addEventListener('scroll', function() {
+            const fab = document.getElementById('scrollToTop');
+            if (window.scrollY > 300) {
+                fab.style.display = 'flex';
+            } else {
+                fab.style.display = 'none';
+            }
+        });
+    </script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

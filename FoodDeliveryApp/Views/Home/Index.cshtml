@@ -1,23 +1,592 @@
 ﻿@model IEnumerable<FoodDeliveryApp.Models.Restaurant>
 
 @{
-ViewData["Title"] = "Restaurants";
+    ViewData["Title"] = "Discover Restaurants";
 }
 
-<h2>Restaurants</h2>
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title animate__animated animate__fadeInUp">
+            <span class="gradient-text">Delicious Food</span>
+            <br>Delivered to Your Door
+        </h1>
+        <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">
+            Experience the best local restaurants with fast delivery and exceptional service
+        </p>
+        
+        <div class="search-container animate__animated animate__fadeInUp animate__delay-2s">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="form-control search-input" placeholder="Search for your favorite food or restaurant...">
+                <button class="btn btn-primary search-btn">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <div class="popular-searches">
+                <span>Popular:</span>
+                <a href="#" class="tag">Pizza</a>
+                <a href="#" class="tag">Sushi</a>
+                <a href="#" class="tag">Burgers</a>
+                <a href="#" class="tag">Italian</a>
+            </div>
+        </div>
 
-<div class="row">
-    @foreach (var restaurant in Model)
-    {
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img src="@restaurant.PhotoUrl" class="card-img-top" alt="@restaurant.Name" style="height: 200px; object-fit: cover;">
-            <div class="card-body">
-                <h5 class="card-title">@restaurant.Name</h5>
-                <p class="card-text text-muted">@restaurant.Description</p>
-                <a class="btn btn-primary btn-sm" asp-controller="Home" asp-action="Details" asp-route-id="@restaurant.RestaurantID">View Menu</a>
+        <div class="hero-stats animate__animated animate__fadeInUp animate__delay-3s">
+            <div class="stat">
+                <i class="fas fa-utensils"></i>
+                <div class="stat-content">
+                    <h3>500+</h3>
+                    <p>Restaurants</p>
+                </div>
+            </div>
+            <div class="stat">
+                <i class="fas fa-motorcycle"></i>
+                <div class="stat-content">
+                    <h3>45 min</h3>
+                    <p>Average Delivery</p>
+                </div>
+            </div>
+            <div class="stat">
+                <i class="fas fa-star"></i>
+                <div class="stat-content">
+                    <h3>4.8</h3>
+                    <p>Customer Rating</p>
+                </div>
             </div>
         </div>
     </div>
-    }
 </div>
+
+<!-- Featured Categories -->
+<section class="featured-categories">
+    <h2 class="section-title">Explore <span class="gradient-text">Categories</span></h2>
+    <div class="categories-grid">
+        <a href="#" class="category-card" data-aos="fade-up">
+            <div class="category-icon"><i class="fas fa-pizza-slice"></i></div>
+            <h3>Pizza</h3>
+            <span class="restaurant-count">50+ Places</span>
+        </a>
+        <a href="#" class="category-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="category-icon"><i class="fas fa-hamburger"></i></div>
+            <h3>Burgers</h3>
+            <span class="restaurant-count">40+ Places</span>
+        </a>
+        <a href="#" class="category-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="category-icon"><i class="fas fa-fish"></i></div>
+            <h3>Sushi</h3>
+            <span class="restaurant-count">30+ Places</span>
+        </a>
+        <a href="#" class="category-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="category-icon"><i class="fas fa-drumstick-bite"></i></div>
+            <h3>Chicken</h3>
+            <span class="restaurant-count">45+ Places</span>
+        </a>
+    </div>
+</section>
+
+<!-- Featured Restaurants -->
+<section class="featured-restaurants">
+    <div class="section-header">
+        <h2 class="section-title">Popular <span class="gradient-text">Restaurants</span></h2>
+        <div class="view-options">
+            <button class="btn btn-outline active">
+                <i class="fas fa-th-large"></i>
+            </button>
+            <button class="btn btn-outline">
+                <i class="fas fa-list"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="restaurants-grid">
+        @foreach (var restaurant in Model)
+        {
+            <div class="restaurant-card" data-aos="fade-up">
+                <div class="card glass-card h-100">
+                    <div class="card-image-wrapper">
+                        <img src="@restaurant.PhotoUrl" class="card-img-top" alt="@restaurant.Name">
+                        <div class="card-badges">
+                            <span class="badge featured">
+                                <i class="fas fa-star-of-life"></i> Featured
+                            </span>
+                            <span class="badge rating">
+                                <i class="fas fa-star"></i> 4.8
+                            </span>
+                        </div>
+                        <div class="quick-view">
+                            <button class="btn-quick-view">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <span class="delivery-time">
+                                <i class="fas fa-clock"></i> 30-45 min
+                            </span>
+                            <span class="delivery-fee">
+                                <i class="fas fa-motorcycle"></i> Free Delivery
+                            </span>
+                        </div>
+                        <h5 class="card-title">@restaurant.Name</h5>
+                        <p class="card-text text-muted">@restaurant.Description</p>
+                        <div class="card-tags">
+                            <span class="tag">
+                                <i class="fas fa-fire"></i> Popular
+                            </span>
+                            <span class="tag">
+                                <i class="fas fa-bolt"></i> Fast Delivery
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary w-100" asp-controller="Home" asp-action="Details" asp-route-id="@restaurant.RestaurantID">
+                            <i class="fas fa-utensils me-2"></i>View Menu
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- AOS Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+    });
+</script>
+
+<style>
+    :root {
+        --primary-orange: #FF6B35;
+        --secondary-orange: #FF9F1C;
+        --dark-orange: #E85D04;
+        --light-orange: #FFE0D4;
+        --white: #FFFFFF;
+        --dark-text: #2D3142;
+        --light-text: #6B7280;
+        --glass-bg: rgba(255, 255, 255, 0.95);
+        --glass-border: rgba(255, 255, 255, 0.3);
+        --orange-gradient: linear-gradient(135deg, #FF6B35, #FF4E00);
+        --orange-glow: 0 0 20px rgba(255, 107, 53, 0.3);
+    }
+
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        padding: 6rem 0 4rem;
+        background: 
+            linear-gradient(135deg, rgba(255, 224, 212, 0.4) 0%, rgba(255, 255, 255, 0.8) 100%),
+            url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF6B35' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        margin-top: -2rem;
+        margin-bottom: 4rem;
+        overflow: hidden;
+    }
+
+    .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--light-text);
+        margin-bottom: 3rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .gradient-text {
+        background: var(--orange-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Search Box */
+    .search-container {
+        max-width: 700px;
+        margin: 0 auto 3rem;
+    }
+
+    .search-box {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 1.5rem 4rem;
+        border-radius: 50px;
+        border: 2px solid var(--glass-border);
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+        border-color: var(--primary-orange);
+        box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-orange);
+        font-size: 1.2rem;
+    }
+
+    .search-btn {
+        position: absolute;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+    }
+
+    .popular-searches {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        color: var(--light-text);
+    }
+
+    .tag {
+        background: rgba(255, 107, 53, 0.1);
+        color: var(--primary-orange);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .tag:hover {
+        background: var(--primary-orange);
+        color: var(--white);
+        transform: translateY(-2px);
+    }
+
+    /* Hero Stats */
+    .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+        margin-top: 4rem;
+    }
+
+    .stat {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .stat i {
+        font-size: 2rem;
+        background: var(--orange-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .stat-content h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin: 0;
+    }
+
+    .stat-content p {
+        color: var(--light-text);
+        margin: 0;
+    }
+
+    /* Featured Categories */
+    .featured-categories {
+        padding: 4rem 0;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 0 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .category-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        text-decoration: none;
+        color: var(--dark-text);
+        transition: all 0.3s ease;
+    }
+
+    .category-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--primary-orange);
+        box-shadow: var(--orange-glow);
+    }
+
+    .category-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-orange);
+    }
+
+    .category-card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .restaurant-count {
+        color: var(--light-text);
+        font-size: 0.9rem;
+    }
+
+    /* Featured Restaurants */
+    .featured-restaurants {
+        padding: 4rem 0;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto 3rem;
+        padding: 0 2rem;
+    }
+
+    .view-options {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .btn-outline {
+        background: transparent;
+        border: 2px solid var(--glass-border);
+        color: var(--light-text);
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline:hover,
+    .btn-outline.active {
+        border-color: var(--primary-orange);
+        color: var(--primary-orange);
+    }
+
+    .restaurants-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 0 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--primary-orange);
+        box-shadow: var(--orange-glow);
+    }
+
+    .card-image-wrapper {
+        position: relative;
+        padding-top: 66.67%;
+        overflow: hidden;
+    }
+
+    .card-image-wrapper img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .glass-card:hover .card-image-wrapper img {
+        transform: scale(1.1);
+    }
+
+    .card-badges {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        right: 1rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .badge {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .badge.featured {
+        color: var(--primary-orange);
+    }
+
+    .badge.rating {
+        color: #ffc107;
+    }
+
+    .quick-view {
+        position: absolute;
+        bottom: -4rem;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .glass-card:hover .quick-view {
+        bottom: 0;
+    }
+
+    .btn-quick-view {
+        background: var(--white);
+        color: var(--dark-text);
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-quick-view:hover {
+        background: var(--primary-orange);
+        color: var(--white);
+    }
+
+    .card-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        color: var(--light-text);
+    }
+
+    .card-title {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--dark-text);
+    }
+
+    .card-tags {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .card-footer {
+        background: transparent;
+        border-top: 1px solid var(--glass-border);
+        padding: 1.5rem;
+    }
+
+    .btn-primary {
+        background: var(--orange-gradient);
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-weight: 600;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    }
+
+    @@media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-stats {
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .restaurants-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .categories-grid {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+
+        .section-header {
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .hero-section {
+            padding: 4rem 1rem 2rem;
+        }
+    }
+</style>
